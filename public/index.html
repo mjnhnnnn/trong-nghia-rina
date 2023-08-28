@@ -705,7 +705,28 @@
                       name="ajax_url"
                     /> -->
                     <!-- <input type="hidden" value="11710" name="post_id" /> -->
-                    <input class="btn btn-submit" type="submit" value="Gửi" />
+                    <button
+                      class="btn btn-submit"
+                      type="submit"
+                      id="btn-submit--send"
+                    >
+                      <span>Gửi</span>
+                    </button>
+                    <button
+                      class="btn btn-submit hideclass"
+                      style="width: 107px; height: 41px"
+                      id="btn-submit--loading"
+                      type="button"
+                    >
+                      <div
+                        class="spinner-border"
+                        role="status"
+                        style="width: 1.2rem; height: 1.2rem"
+                      >
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </button>
+                    <!-- <input class="btn btn-submit" type="submit" value="" /> -->
                   </div>
                 </form>
               </div>
@@ -719,45 +740,7 @@
         display: none;
       }
     </style>
-    <script>
-      let inpCheckThamDu = document.querySelector("input[name=thamdu]:checked"); //có or ko
-      let checkbox = document.querySelectorAll("input[name=thamdu]");
-      for (var i = 0; i < checkbox.length; i++) {
-        checkbox[i].onclick = function () {
-          // console.log(this.value);
-          if (this.value == "có") {
-            document
-              .getElementById("sluongthamduID")
-              .classList.remove("hideclass");
-            document.querySelector("#so_luong_nguoi_tham_du").value = "1";
-          } else {
-            document
-              .getElementById("sluongthamduID")
-              .classList.add("hideclass");
-            document.querySelector("#so_luong_nguoi_tham_du").value = "";
-          }
-        };
-      }
 
-      function mySubmitFunction(e) {
-        alert("Hẹn bạn ngày cưới nhé");
-        // fetch(
-        //   "https://script.google.com/macros/s/AKfycbx6IgZFCXqbxZ6XIGzLAhsLmpIa2v6RXu0iqBPynF2un6fL_jwuK09qgXeYv3LqtyNDDQ/exec",
-        //   {
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       hoten: 1,
-        //       sdt: "Fix my bugs",
-        //     }),
-        //     headers: {
-        //       "Content-type": "application/json; charset=UTF-8",
-        //     },
-        //   }
-        // )
-        //   .then((response) => response.json())
-        //   .then((json) => console.log(json));
-      }
-    </script>
     <script
       src="https://endfa.vn/_weddinginvitations/gianam-nguyenhang/js/jquery-3.4.1.min.js"
       type="text/javascript"
@@ -925,6 +908,69 @@
         style="vertical-align: middle"
       ></div>
     </div> -->
+    <script>
+      let inpCheckThamDu = document.querySelector("input[name=thamdu]:checked"); //có or ko
+      let checkbox = document.querySelectorAll("input[name=thamdu]");
+      for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].onclick = function () {
+          // console.log(this.value);
+          if (this.value == "có") {
+            document
+              .getElementById("sluongthamduID")
+              .classList.remove("hideclass");
+            document.querySelector("#so_luong_nguoi_tham_du").value = "1";
+          } else {
+            document
+              .getElementById("sluongthamduID")
+              .classList.add("hideclass");
+            document.querySelector("#so_luong_nguoi_tham_du").value = "";
+          }
+        };
+      }
+
+      $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+          if (o[this.name]) {
+            if (!o[this.name].push) {
+              o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || "");
+          } else {
+            o[this.name] = this.value || "";
+          }
+        });
+        return o;
+      };
+
+      function mySubmitFunction(e) {
+        $("#btn-submit--loading").show();
+        $("#btn-submit--send").hide();
+        e.preventDefault();
+        let url =
+            "https://script.google.com/macros/s/AKfycbx6IgZFCXqbxZ6XIGzLAhsLmpIa2v6RXu0iqBPynF2un6fL_jwuK09qgXeYv3LqtyNDDQ/exec",
+          data = $("#attend-form-minh").serializeObject();
+        $.ajax({
+          data: data,
+          dataType: "json",
+          url: url,
+          type: "POST",
+        })
+          .done(function (data) {
+            // If successful
+            console.log(data);
+            alert("Hẹn bạn ngày cưới nhé");
+            $("#attendModalCenter").modal("hide");
+            $("#btn-submit--loading").hide();
+            $("#btn-submit--send").show();
+          })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+            // If fail
+            console.log(textStatus + ": " + errorThrown);
+          });
+      }
+    </script>
   </body>
 
   <!-- Mirrored from endfa.vn/thiep-cuoi/gia-nam-nguyen-hang/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 07 Aug 2023 08:53:26 GMT -->
