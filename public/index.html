@@ -667,6 +667,27 @@
                       >
                     </label>
                   </div>
+
+                  <div class="attend-wrap" id="sluongthamduID">
+                    <h4>Số lượng người tham dự</h4>
+                    <select
+                      name="so_luong_nguoi_tham_du"
+                      id="so_luong_nguoi_tham_du"
+                      style="
+                        border: 1px solid #918f8f;
+                        width: 100%;
+                        font-size: 1.25rem;
+                        padding: 8px;
+                      "
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+
                   <p>
                     <textarea
                       name="loichuc"
@@ -693,7 +714,31 @@
         </div>
       </div>
     </div>
+    <style>
+      .hideclass {
+        display: none;
+      }
+    </style>
     <script>
+      let inpCheckThamDu = document.querySelector("input[name=thamdu]:checked"); //có or ko
+      let checkbox = document.querySelectorAll("input[name=thamdu]");
+      for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].onclick = function () {
+          // console.log(this.value);
+          if (this.value == "có") {
+            document
+              .getElementById("sluongthamduID")
+              .classList.remove("hideclass");
+            document.querySelector("#so_luong_nguoi_tham_du").value = "1";
+          } else {
+            document
+              .getElementById("sluongthamduID")
+              .classList.add("hideclass");
+            document.querySelector("#so_luong_nguoi_tham_du").value = "";
+          }
+        };
+      }
+
       function mySubmitFunction(e) {
         alert("Hẹn bạn ngày cưới nhé");
         // fetch(
