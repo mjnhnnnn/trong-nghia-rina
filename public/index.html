@@ -629,7 +629,7 @@
                         id="inputname"
                         type="text"
                         class="d-block w-100"
-                        name="hoten"
+                        name="HO_TEN"
                         placeholder=""
                         required
                       />
@@ -644,7 +644,7 @@
                         id="inputemail"
                         type="text"
                         class="d-block w-100"
-                        name="sdt"
+                        name="SDT"
                         placeholder=""
                         required
                       />
@@ -656,13 +656,13 @@
                     <label class="label-input">
                       <input
                         type="radio"
-                        name="thamdu"
+                        name="THAM_DU"
                         value="có"
                         checked
                       /><span>Có, tôi sẽ tham dự</span>
                     </label>
                     <label class="label-input">
-                      <input type="radio" name="thamdu" value="không" /><span
+                      <input type="radio" name="THAM_DU" value="không" /><span
                         >Xin lỗi, tôi không tham dự được</span
                       >
                     </label>
@@ -671,8 +671,8 @@
                   <div class="attend-wrap" id="sluongthamduID">
                     <h4>Số lượng người tham dự</h4>
                     <select
-                      name="so_luong_nguoi_tham_du"
-                      id="so_luong_nguoi_tham_du"
+                      name="SO_LUONG_NGUOI_THAM_DU"
+                      id="SO_LUONG_NGUOI_THAM_DU"
                       style="
                         border: 1px solid #918f8f;
                         width: 100%;
@@ -690,7 +690,7 @@
 
                   <p>
                     <textarea
-                      name="loichuc"
+                      name="LOI_CHUC"
                       cols="40"
                       rows="6"
                       placeholder="Lời Chúc"
@@ -909,8 +909,10 @@
       ></div>
     </div> -->
     <script>
-      let inpCheckThamDu = document.querySelector("input[name=thamdu]:checked"); //có or ko
-      let checkbox = document.querySelectorAll("input[name=thamdu]");
+      let inpCheckThamDu = document.querySelector(
+        "input[name=THAM_DU]:checked"
+      ); //có or ko
+      let checkbox = document.querySelectorAll("input[name=THAM_DU]");
       for (var i = 0; i < checkbox.length; i++) {
         checkbox[i].onclick = function () {
           // console.log(this.value);
@@ -918,12 +920,12 @@
             document
               .getElementById("sluongthamduID")
               .classList.remove("hideclass");
-            document.querySelector("#so_luong_nguoi_tham_du").value = "1";
+            document.querySelector("#SO_LUONG_NGUOI_THAM_DU").value = "1";
           } else {
             document
               .getElementById("sluongthamduID")
               .classList.add("hideclass");
-            document.querySelector("#so_luong_nguoi_tham_du").value = "";
+            document.querySelector("#SO_LUONG_NGUOI_THAM_DU").value = "";
           }
         };
       }
